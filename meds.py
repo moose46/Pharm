@@ -15,7 +15,7 @@ Rules:S
 
 import calendar
 import re
-from datetime import date, timedelta
+from datetime import date, timedelta, datetime
 
 from dateutil.relativedelta import *
 from dateutil.rrule import *
@@ -61,3 +61,17 @@ for y in x:
 print(f"start-{perscription_start_date} --- end-{perscription_end_date}")
 # print(f"{perscription_end_date - perscription_start_date}")
 print(f"ezetimibe={ezetimibe}\ncrestor={crestor}\ntotal={ezetimibe+crestor}")
+# https://dateutil.readthedocs.io/en/stable/examples.html#relativedelta-examples
+TODAY = date.today()
+result = relativedelta(datetime(year=1946, month=7, day=10, hour=12, minute=0), TODAY)
+print(f"Bob is {abs(result.years)} years old")
+# next friday
+print(f"{TODAY+relativedelta(weekday=calendar.FRIDAY)} this friday")
+# next wednesday
+print(f"{TODAY+relativedelta(weekday=WE(+2))} next wednesday")
+# next wednesday but not today
+print(f"{TODAY+relativedelta(days=+1, weekday=WE(+1))} this wednesday but not today ")
+# Obtain today’s date using the yearday:
+print(f"{date(2005, 1, 1)+relativedelta(yearday=260)}")
+# We can use today’s date, since yearday should be absolute in the given year:
+print(f"{TODAY+relativedelta(yearday=260)}")
