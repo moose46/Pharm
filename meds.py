@@ -15,7 +15,7 @@ Rules:S
 
 import calendar
 import re
-from datetime import date, timedelta, datetime
+from datetime import date, datetime, timedelta
 
 from dateutil.relativedelta import *
 from dateutil.rrule import *
@@ -24,9 +24,11 @@ days = ["Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"]
 # create a date object for Jan 4th of the given year
 # This date is always in the first week of the year iso 8601
 year = 2025
-month = 5
-day = 10
-
+month = 8  # August
+day = 11
+year = datetime.now().year if year is None else year
+month = datetime.now().month if month is None else month
+day = datetime.now().day if day is None else day
 # Perscription starting date
 perscription_start_date = date(year, month, day)
 # Perscription start date + perscription length in days
@@ -35,7 +37,7 @@ perscription_end_date = perscription_start_date + timedelta(days=89)
 # init variables
 ezetimibe = 0
 crestor = 0
-# make a lif of all days betwwen perscription start date and end date
+# make a list of all days betwwen perscription start date and end date
 x = list(rrule(DAILY, dtstart=perscription_start_date, until=perscription_end_date))
 
 # loop through all the perscription days
